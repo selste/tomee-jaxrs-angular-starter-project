@@ -4,9 +4,11 @@
 
 var phonecatApp = angular.module('phonecatApp', []);
 
-phonecatApp.controller('PhoneListCtrl', function($scope, $http) {
+phonecatApp.controller('PhoneListCtrl', function($scope, $http, $log) {
   $http.get('phone/list').success(function(data) {
-    $scope.phones = data.phone;
+    // $log.debug(data)
+
+    $scope.phones = data;
   });
 
   $scope.orderProp = 'age';

@@ -20,36 +20,37 @@ import javax.persistence.*;
 
 @Entity
 @NamedQueries({
-    @NamedQuery(name = Phone.FIND_ALL, query = "SELECT p FROM Phone p")
+        @NamedQuery(name = Phone.FIND_ALL, query = "SELECT p FROM Phone p")
 })
 public class Phone {
 
     public static final String FIND_ALL = "Phone.FIND_ALL";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id")
-    @SequenceGenerator(name = "id", sequenceName = "id")
+    @GeneratedValue
     private Long id;
+
     private int age;
+
     private String carrier;
+
     private String name;
+
     private String snippet;
 
-    public Phone() {
-    }
+    public Phone() {}
 
-    public Phone(int age, String carrier, Long id, String name, String snippet) {
-        this.age = age;
-        this.carrier = carrier;
+    public Phone(Long id) {
         this.id = id;
-        this.name = name;
-        this.snippet = snippet;
     }
 
+    public Long getId() {
+        return id;
+    }
 
-    public Long getId() { return id; }
-
-    public void setId(Long id) { this.id = id; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public int getAge() {
         return age;

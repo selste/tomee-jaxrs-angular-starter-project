@@ -1,0 +1,30 @@
+node {
+    timestamps {
+        stage('Cleanup') {
+            step([$class: 'WsCleanup'])
+        }
+    }
+
+    stage('Checkout') {
+        checkout poll: false,
+            scm: [$class: 'GitSCM', branches: [[name: '3.1']],
+            doGenerateSubmoduleConfigurations: false,
+            extensions: [[$class: 'LocalBranch', localBranch: '3.1']],
+            submoduleCfg: [],
+            userRemoteConfigs: [[url: 'https://github.com/selste/tomee-jaxrs-angular-starter-project']]]
+    }
+
+    withMaven(maven: 'Maven 3.3.9', mavenLocalRepo: '', mavenOpts: '', mavenSettingsFilePath: '') {
+        stage('Compile') {
+            sh 'mvn -V -B clean compile'
+        }
+
+        stage('Test') {
+            sh 'mvn -B verify'
+        }
+
+        stage('Publish') {
+            junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml, target/failsafe-reports/*.xml'
+        }
+    }
+}

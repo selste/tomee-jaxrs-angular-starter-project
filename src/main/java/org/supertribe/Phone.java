@@ -16,28 +16,40 @@
  */
 package org.supertribe;
 
+import javax.persistence.*;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
-@XmlRootElement
+@Entity
+@NamedQueries({
+    @NamedQuery(name = Phone.FIND_ALL, query = "SELECT p FROM Phone p")
+})
 public class Phone {
 
+    public static final String FIND_ALL = "Phone.FIND_ALL";
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id")
+    @SequenceGenerator(name = "id", sequenceName = "id")
+    private Long id;
     private int age;
     private String carrier;
-    private String id;
     private String name;
     private String snippet;
 
     public Phone() {
     }
 
-    public Phone(int age, String carrier, String id, String name, String snippet) {
+    public Phone(int age, String carrier, Long id, String name, String snippet) {
         this.age = age;
         this.carrier = carrier;
         this.id = id;
         this.name = name;
         this.snippet = snippet;
     }
+
+
+    public Long getId() { return id; }
+
+    public void setId(Long id) { this.id = id; }
 
     public int getAge() {
         return age;
@@ -53,14 +65,6 @@ public class Phone {
 
     public void setCarrier(String carrier) {
         this.carrier = carrier;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -88,5 +92,28 @@ public class Phone {
                 ", name='" + name + '\'' +
                 ", snippet='" + snippet + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Phone phone = (Phone) o;
+
+        if (age != phone.age) return false;
+        if (!id.equals(phone.id)) return false;
+        if (carrier != null ? !carrier.equals(phone.carrier) : phone.carrier != null) return false;
+        return name != null ? name.equals(phone.name) : phone.name == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + age;
+        result = 31 * result + (carrier != null ? carrier.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        return result;
     }
 }

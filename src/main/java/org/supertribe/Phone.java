@@ -32,7 +32,8 @@ public class Phone {
 
     private int age;
 
-    private String carrier;
+    @ManyToOne
+    private Carrier carrier;
 
     private String name;
 
@@ -60,14 +61,6 @@ public class Phone {
         this.age = age;
     }
 
-    public String getCarrier() {
-        return carrier;
-    }
-
-    public void setCarrier(String carrier) {
-        this.carrier = carrier;
-    }
-
     public String getName() {
         return name;
     }
@@ -82,6 +75,14 @@ public class Phone {
 
     public void setSnippet(String snippet) {
         this.snippet = snippet;
+    }
+
+    public Carrier getCarrier() {
+        return carrier;
+    }
+
+    public void setCarrier(Carrier carrier) {
+        this.carrier = carrier;
     }
 
     @Override

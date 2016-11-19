@@ -52,7 +52,7 @@
                 <tr ng-repeat = "phone in phones | filter:query | orderBy:orderProp">
                     <td>{{phone.name}}</td>
                     <td>{{phone.age}}</td>
-                    <td>{{phone.carrier}}</td>
+                    <td>{{phone.carrier.name}}</td>
                     <td>{{phone.snippet}}</td>
                 </tr>
            </table>

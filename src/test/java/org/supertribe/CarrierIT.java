@@ -7,10 +7,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
+import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-public class PhoneIT {
+public class CarrierIT {
 
     EntityManager em;
     EntityTransaction tx;
@@ -23,19 +24,19 @@ public class PhoneIT {
         tx = em.getTransaction();
     }
 
+
     @Test
-    public void createPhone() throws Exception {
+    public void createCarrier() throws Exception {
         System.out.println("init");
 
-        Phone phone = new Phone();
-        phone.setAge(42);
-        phone.setName("Motorola Defy");
+        Carrier carrier = new Carrier();
+        carrier.setName("T-Mobile");
 
         tx.begin();
-        em.merge(phone);
+        em.merge(carrier);
         tx.commit();
 
-        TypedQuery<Phone> query = em.createNamedQuery(Phone.FIND_ALL, Phone.class);
+        final TypedQuery<Carrier> query = em.createNamedQuery(Carrier.FIND_ALL, Carrier.class);
 
         assertTrue("Expected one entity", 1 == query.getResultList().size());
     }

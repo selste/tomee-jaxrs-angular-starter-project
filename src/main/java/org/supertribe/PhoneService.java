@@ -27,7 +27,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @Stateless
-@Path("/phone")
+@Path("/gallery")
 @Produces(MediaType.APPLICATION_JSON)
 public class PhoneService {
 
@@ -35,11 +35,21 @@ public class PhoneService {
     private EntityManager entityManager;
 
     @GET
-    @Path("list")
+    @Path("phones")
     public List<Phone> getPhones() {
         final TypedQuery<Phone> query = entityManager.createNamedQuery(Phone.FIND_ALL, Phone.class);
 
         List<Phone> result = query.getResultList();
+
+        return result;
+    }
+
+    @GET
+    @Path("carriers")
+    public List<Carrier> getCarriers() {
+        final TypedQuery<Carrier> query = entityManager.createNamedQuery(Carrier.FIND_ALL, Carrier.class);
+
+        List<Carrier> result = query.getResultList();
 
         return result;
     }

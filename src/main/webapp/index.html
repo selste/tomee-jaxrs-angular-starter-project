@@ -24,9 +24,11 @@
          }
     </style>
 </head>
-<body ng-controller="PhoneListCtrl">
+<body>
 
-<div class="container-fluid">
+<h1>Phone Gallery</h1>
+<br/>
+<div class="container-fluid" ng-controller="PhoneListCtrl">
     <div class="row">
         <div class="col-md-2">
             <!--Sidebar content-->
@@ -37,15 +39,14 @@
                 <option value="name">Alphabetical</option>
                 <option value="age">Newest</option>
             </select>
-
         </div>
         <div class="col-md-10">
             <!--Body content-->
             <table>
                 <tr>
-                    <th>Name</th>.
+                    <th>Name</th>
                     <th>Age</th>
-                    <th>Carrier</th>.
+                    <th>Carrier</th>
                     <th>Snippet</th>
                 </tr>
 

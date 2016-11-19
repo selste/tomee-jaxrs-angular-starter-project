@@ -6,6 +6,9 @@ import org.junit.Test;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
+
+import static org.junit.Assert.assertTrue;
 
 public class PhoneIT {
 
@@ -33,5 +36,9 @@ public class PhoneIT {
         tx.begin();
         em.merge(phone);
         tx.commit();
+
+        TypedQuery<Phone> query = em.createNamedQuery(Phone.FIND_ALL, Phone.class);
+
+        assertTrue("Expected one entity", 1 == query.getResultList().size());
     }
 }

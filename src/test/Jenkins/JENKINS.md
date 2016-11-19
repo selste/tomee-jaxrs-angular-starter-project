@@ -4,6 +4,8 @@ Based on Docker images provided for
   - the [workflow-aggregator-plugin](https://github.com/jenkinsci/workflow-aggregator-plugin)
   - the tutorial [Putting Jenkins in a Docker Container](https://engineering.riotgames.com/news/putting-jenkins-docker-container)
 
+Information on how to set up Oracle's JDK gleaned from [How to install Oracle Java 8 in Debian via Repository](http://www.webupd8.org/2014/03/how-to-install-oracle-java-8-in-debian.html) 
+
 Steps to get it up and running
 ------------------------------
 Execute

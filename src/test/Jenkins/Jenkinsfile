@@ -14,7 +14,7 @@ node {
             userRemoteConfigs: [[url: 'https://github.com/selste/tomee-jaxrs-angular-starter-project']]]
     }
 
-    withMaven(maven: 'Maven 3.3.9', mavenLocalRepo: '', mavenOpts: '', mavenSettingsFilePath: '') {
+    withMaven(jdk: 'Java 8 SE', maven: 'Maven 3.3.9', mavenLocalRepo: '', mavenOpts: '', mavenSettingsFilePath: '') {
         stage('Compile') {
             sh 'mvn -V -B clean compile'
         }

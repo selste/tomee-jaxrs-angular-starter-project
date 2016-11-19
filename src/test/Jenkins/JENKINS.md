@@ -17,11 +17,12 @@ Afterwards run the freshly created image with
 Jenkins will start up, then open [http://localhost:8080]() in a browser to step through the configuration.
 To get at the hash to unlock Jenkins run
 
-    docker exec jenkins-master cat /var/jenkins_home/secrets/initialAdminPassword.
+    docker exec jenkins-master cat /var/jenkins_home/secrets/initialAdminPassword
 
 Click the *Install suggested plugins* button, this will ensure that most of the plugins needed to run
 the Build Pipeline for this project will be installed.
 After creating an administrative account proceed and install the [Pipeline Maven Integration Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Maven+Plugin)
+
 
 Apache Maven 3.3.9 is part of the image, located at `/usr/local/maven`.
 OpenJDK is available as well, under `/usr/lib/jvm`.
@@ -30,4 +31,12 @@ To stop and (re-)start the image execute `docker stop jenkins-master` and `docke
 
 Build Pipeline for this project
 -------------------------------
-TODO
+The provided Jenkinsfile requires modifications to the _Global Tool Configuration_ in Jenkins.
+  - Add a JDK entry named _Java 8 SE_, set JAVA_HOME to _/usr/lib/jvm/java-8-oracle_
+  - Add a Maven installation named _Maven 3.3.9_, set MAVEN_HOME to _/usr/local/maven
+
+Create a new Pipeline Job - let's call it _tomee-rest-angular_.
+
+Copy the contents of _Jenkinsfile_ into the Job (when using _Pipeline script_ definition).
+You can also select _Pipeline script from SCM_, choose _Git_ as Provider, enter the URL to this repository
+and set the correct branch to checkout, then enter the relative path to the Jenkinsfile (_src/test/Jenkins/Jenkinsfile_).

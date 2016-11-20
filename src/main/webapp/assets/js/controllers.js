@@ -5,11 +5,21 @@
 var phonecatApp = angular.module('phonecatApp', []);
 
 phonecatApp.controller('PhoneListCtrl', function($scope, $http, $log) {
+
+  $scope.loadPhones = function () {
+     $http.get('gallery/phones').success(function(data) {
+       $scope.phones = data;
+     });
+  };
+
+/*
   $http.get('gallery/phones').success(function(data) {
     $log.debug(data)
 
     $scope.phones = data;
   });
+*/
+  $scope.loadPhones();
 
   $http.get('gallery/carriers').success(function(data) {
     $log.debug(data)
@@ -20,6 +30,12 @@ phonecatApp.controller('PhoneListCtrl', function($scope, $http, $log) {
   $scope.orderProp = 'age';
 
   $scope.phoneForm = {}
+  $scope.originalPhoneForm = angular.copy($scope.phoneForm);
+
+  $scope.resetForm = function(){
+    $scope.phoneForm = angular.copy($scope.originalPhoneForm);
+    $scope.phoneForm.$setPristine();
+  };
 
   $scope.phoneForm.submitTheForm = function(item, event) {
        var dataObject = {
@@ -32,10 +48,13 @@ phonecatApp.controller('PhoneListCtrl', function($scope, $http, $log) {
        var responsePromise = $http.post("gallery/save", dataObject, {});
        responsePromise.success(function(dataFromServer, status, headers, config) {
           console.log(dataFromServer.title);
+          $scope.loadPhones();
+          $scope.resetForm();
        });
 
        responsePromise.error(function(data, status, headers, config) {
           alert("Submitting form failed!");
        });
   }
+
 });

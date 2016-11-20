@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <Resource id="H2DataSource" type="javax.sql.DataSource">
+        JdbcDriver org.h2.jdbcx.JdbcDataSource
+        JdbcUrl jdbc:h2:mem:phone;DB_CLOSE_DELAY=-1
+        UserName sa
+        Password sa
+        jtaManaged = true
+    </Resource>
+</resources>

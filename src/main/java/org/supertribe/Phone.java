@@ -27,7 +27,6 @@ public class Phone {
     public static final String FIND_ALL = "Phone.FIND_ALL";
 
     @Id
-    @GeneratedValue
     private Long id;
 
     private int age;
@@ -89,7 +88,7 @@ public class Phone {
     public String toString() {
         return "Phone{" +
                 "age=" + age +
-                ", carrier='" + carrier + '\'' +
+                ", carrier='" + carrier.toString() + '\'' +
                 ", id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", snippet='" + snippet + '\'' +
@@ -118,4 +117,5 @@ public class Phone {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }
+
 }

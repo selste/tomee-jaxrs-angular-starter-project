@@ -21,10 +21,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+
+import static java.lang.Math.abs;
 
 @Stateless
 @Path("/gallery")
@@ -51,6 +54,35 @@ public class PhoneService {
 
         List<Carrier> result = query.getResultList();
 
+        return result;
+    }
+
+    @POST
+    @Path("save")
+    public Phone savePhone(Phone phone) {
+        Phone entity = new Phone();
+        entity.setAge(phone.getAge());
+        entity.setName(phone.getName());
+        entity.setCarrier(phone.getCarrier());
+        entity.setSnippet(phone.getSnippet());
+
+        long id = abs(generateHashCode(phone.getAge(), phone.getName(), phone.getCarrier(), phone.getSnippet()));
+
+        entity.setId(new Long(id));
+
+        System.out.println(entity.toString());
+
+        /// entityManager.merge(entity);
+        entityManager.persist(entity);
+
+        return phone;
+    }
+
+    int generateHashCode(int age, String name, Carrier carrier, String snippet) {
+        int result = 7;
+        result = 17 * result + age;
+        result = 17 * result + (carrier != null ? carrier.hashCode() : 0);
+        result = 17 * result + (name != null ? name.hashCode() : 0);
         return result;
     }
 }

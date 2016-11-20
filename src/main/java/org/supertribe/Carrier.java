@@ -11,7 +11,7 @@ public class Carrier {
     public static final String FIND_ALL = "Carrier.FIND_ALL";
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -30,5 +30,13 @@ public class Carrier {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Carrier{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

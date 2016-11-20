@@ -20,6 +20,9 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -50,11 +53,15 @@ public class PhoneService {
     @GET
     @Path("carriers")
     public List<Carrier> getCarriers() {
-        final TypedQuery<Carrier> query = entityManager.createNamedQuery(Carrier.FIND_ALL, Carrier.class);
+        // Because we can ...
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Carrier> criteriaQuery = criteriaBuilder.createQuery(Carrier.class);
+        Root<Carrier> root = criteriaQuery.from(Carrier.class);
+        CriteriaQuery<Carrier> all = criteriaQuery.select(root);
 
-        List<Carrier> result = query.getResultList();
+        TypedQuery<Carrier> typedQuery = entityManager.createQuery(all);
 
-        return result;
+        return typedQuery.getResultList();
     }
 
     @POST

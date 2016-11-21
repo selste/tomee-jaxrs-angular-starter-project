@@ -172,4 +172,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <failOnMissingWebXml>false</failOnMissingWebXml>
     </properties>
+
+    <scm>
+        <url>https://github.com/selste/tomee-jaxrs-angular-starter-project</url>
+        <connection>https://github.com/selste/tomee-jaxrs-angular-starter-project</connection>
+        <developerConnection>https://github.com/selste/tomee-jaxrs-angular-starter-project</developerConnection>
+        <tag>4.0</tag>
+    </scm>
 </project>
